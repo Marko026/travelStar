@@ -14,7 +14,7 @@ const Home = () => {
 
                     <div className="col-sm-3">
                         <select className="form-select form-select-lg" >
-                            <option >Mesec...</option>
+                            <option defaultValue={"Mesec"}>Mesec...</option>
                             <option value="1">Oktobar</option>
                             <option value="2">Novembar</option>
                             <option value="3">Decembar</option>
@@ -23,7 +23,7 @@ const Home = () => {
 
                     <div className="col-sm-3">
                         <select className="form-select form-select-lg" >
-                            <option >Sortiraj...</option>
+                            <option defaultValue={"Sortitaj"} >Sortiraj...</option>
                             <option value="1">Opadajuce</option>
                             <option value="2">Rastuce</option>
                         </select>

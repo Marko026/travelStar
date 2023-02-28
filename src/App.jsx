@@ -6,29 +6,34 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Details from './pages/Details'
 import Dashboard from './pages/Dashboard'
-import TravelsOffers from './pages/TravelsOffers'
+import TravelOffers from './pages/TravelOffers'
 import NotFound from "./pages/NotFound"
+import { TravelProvider } from "./Context/TravelContext"
 
 function App() {
 
+
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
+    <TravelProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/traveloffers" element={<TravelsOffers />} />
-          <Route path="/details/:id" element={<Details />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/*" element={<NotFound />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/traveloffers" element={<TravelOffers />} />
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/*" element={<NotFound />} />
 
-        </Routes>
+          </Routes>
 
 
 
-      </div>
-    </BrowserRouter>
+        </div>
+      </BrowserRouter>
+    </TravelProvider>
   )
 }
 

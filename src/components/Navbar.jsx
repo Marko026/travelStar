@@ -24,7 +24,7 @@ const Navbar = () => {
         <div>
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
-                    <Link className="navbar-brand text-white fw-bold fst-italic" to="/"><img src="img/logo.png" alt="" width="50" /> TravelStar</Link>
+                    <Link className="navbar-brand text-white fw-bold fst-italic" to="/"><img src="../img/logo.png" alt="" width="50" /> TravelStar</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -39,9 +39,7 @@ const Navbar = () => {
                             <li className="nav-item ">
                                 <Link className="nav-link text-white" to="dashboard">Dashboard</Link>
                             </li>
-                            <li className="nav-item ">
-                                <Link className="nav-link text-white " to="details">Details</Link>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
