@@ -14,3 +14,7 @@ body {
   background-size: cover;
   background-position: center;
 }
+.notfound {
+  line-height: 500px;
+  text-align: center;
+}
