@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-
+import { useState } from "react"
 
 import './App.css'
 import Navbar from './components/Navbar'
@@ -12,6 +12,8 @@ import { TravelProvider } from "./Context/TravelContext"
 
 function App() {
 
+  const [searchDest, setSearchDest] = useState("")
+  const [sortDest, setSortDest] = useState("")
 
 
   return (
@@ -21,8 +23,8 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/traveloffers" element={<TravelOffers />} />
+            <Route path="/" element={<Home searchDest={searchDest} setSearchDest={setSearchDest} sortDest={sortDest} setSortDest={setSearchDest} />} />
+            <Route path="/traveloffers" element={<TravelOffers searchDest={searchDest} setSearchDest={setSearchDest} sortDest={sortDest} setSortDest={setSearchDest} />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/*" element={<NotFound />} />

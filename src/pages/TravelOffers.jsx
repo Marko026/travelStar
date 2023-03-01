@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useContext, useState } from 'react'
 import TravelContext from '../Context/TravelContext'
 import { Link } from "react-router-dom"
+import filter from '../utility/Filter'
 
 
 
-const TravelOffers = () => {
+const TravelOffers = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
 
     const { traveloffers, setTravelOffers } = useContext(TravelContext)
+    const [filtredTravel, setFiltredTravel] = useState([])
 
 
 
+    useEffect(() => {
 
+        let temp = filter(searchDest, traveloffers, sortDest);
+        setFiltredTravel([...temp])
+    }, [])
+
+    const searchFilter = (e) => {
+        e.preventDefault()
+
+        let temp = filter(searchDest, traveloffers, sortDest);
+        setFiltredTravel([...temp])
+
+    }
 
 
     return (
@@ -19,10 +33,10 @@ const TravelOffers = () => {
             <section className="bg-light py-5 text-dark d-flex flex-column justify-content-center align-items-center">
                 <h1 className="fw-bold display-5">Gde zelite da putujete?</h1>
                 <p>Pretrazite nasu veliku ponudu premium putovanja</p>
-                <form className="row gx-3 gy-2 align-items-center container">
+                <form onSubmit={(e) => searchFilter(e)} className="row gx-3 gy-2 align-items-center container">
 
                     <div className="col-sm-3">
-                        <input type="text" className="form-control form-control-lg" placeholder="Destinacija" />
+                        <input value={searchDest} onChange={(e) => setSearchDest(e.target.value)} type="text" className="form-control form-control-lg" placeholder="Destinacija" />
                     </div>
 
                     <div className="col-sm-3">
@@ -35,7 +49,7 @@ const TravelOffers = () => {
                     </div>
 
                     <div className="col-sm-3">
-                        <select className="form-select form-select-lg" >
+                        <select value={sortDest} onChange={(e) => setSortDest(e.target.value)} className="form-select form-select-lg" >
                             <option defaultValue={"Sortitaj"}>Sortiraj...</option>
                             <option value="1">Opadajuce</option>
                             <option value="2">Rastuce</option>
@@ -51,7 +65,7 @@ const TravelOffers = () => {
             <section className="container pregled-putovanja py-5">
                 <div className="row row-cols-1 row-cols-md-3 g-4">
 
-                    {traveloffers.map((travel, idx) => {
+                    {filtredTravel.map((travel, idx) => {
                         const { img, destination, price, date } = travel
 
                         const stars = []

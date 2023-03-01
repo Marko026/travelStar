@@ -3,6 +3,10 @@ import { useState } from "react";
 const TravelContext = createContext();
 
 export const TravelProvider = ({ children }) => {
+
+
+
+
     const [traveloffers, setTravelOffers] = useState([
         {
 
@@ -16,7 +20,7 @@ export const TravelProvider = ({ children }) => {
         },
         {
 
-            destination: "Englend",
+            destination: "England",
             title: "Exploring the Unique Heritage of England",
             rating: 3,
             desc: "England is a beautiful, historic country with diverse cultures, world-class attractions, stunning countryside and lively cities. Its vibrant culture and distinctive heritage offer a unique experience for visitors from all over the world",
