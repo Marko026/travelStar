@@ -1,6 +1,104 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
+import TravelContext from '../Context/TravelContext'
 
 const Dashboard = () => {
+    const { traveloffers, setTravelOffers } = useContext(TravelContext)
+
+    const [destination, setDestination] = useState("");
+    const [title, setTitle] = useState("");
+    const [desc, setDescription] = useState("");
+    const [price, setPrice] = useState(0);
+    const [img, setImg] = useState("");
+    const [date, setDateTravel] = useState("");
+    const [rating, setRating] = useState(0);
+
+    const [editMode, setEditMode] = useState({ mode: false, id: null, })
+
+
+    const addTravel = (e) => {
+        e.preventDefault()
+
+        if (editMode.mode == false) {
+            setTravelOffers([...traveloffers, {
+                destination: destination,
+                title: title,
+                desc: desc,
+                price: price,
+                img: img,
+                date: date,
+                rating: rating,
+            }])
+        } else {
+            console.log("Editing....")
+        }
+
+        setDestination("");
+        setTitle("");
+        setDescription("");
+        setPrice(0);
+        setImg("");
+        setDateTravel("");
+        setRating(0);
+
+    }
+    const removeTravel = (idx) => {
+
+        let tempTrave = [...traveloffers]
+        tempTrave.splice(idx, 1)
+        setTravelOffers([...tempTrave])
+
+    }
+    const setEdit = (idx) => {
+        setEditMode({ mode: true, id: idx })
+        setDestination(traveloffers[idx].destination);
+        setTitle(traveloffers[idx].title);
+        setDescription(traveloffers[idx].desc);
+        setPrice(traveloffers[idx].price);
+        setImg(traveloffers[idx].img);
+        setDateTravel(traveloffers[idx].date);
+        setRating(traveloffers[idx].rating);
+    }
+
+    const finalEdit = (e) => {
+        e.preventDefault();
+        let id = editMode.id
+
+        if (editMode.mode == true) {
+
+            traveloffers[id].destination = destination
+            traveloffers[id].title = title
+            traveloffers[id].desc = desc
+            traveloffers[id].price = price
+            traveloffers[id].img = img
+            traveloffers[id].date = date
+            traveloffers[id].rating = rating
+
+
+            setDestination("");
+            setTitle("");
+            setDescription("");
+            setPrice(0);
+            setImg("");
+            setDateTravel("");
+            setRating(0);
+
+            setEditMode({ mode: false, id: null })
+        }
+    }
+
+    const cancleAdd = (e) => {
+        e.preventDefault()
+        setDestination("");
+        setTitle("");
+        setDescription("");
+        setPrice(0);
+        setImg("");
+        setDateTravel("");
+        setRating(0);
+    }
+
+
+
     return (
         <>
             <section className="bg-light py-5 text-dark d-flex flex-column justify-content-center align-items-center">
@@ -8,28 +106,28 @@ const Dashboard = () => {
                 <form className="row gx-3 gy-2 align-items-center container">
 
                     <div className="col-sm-3">
-                        <input type="text" className="form-control form-control-lg" placeholder="Destinacija" />
+                        <input value={destination} onChange={(e) => setDestination(e.target.value)} type="text" className="form-control form-control-lg" placeholder="Destination" />
                     </div>
 
                     <div className="col-sm-3">
-                        <input type="text" className="form-control form-control-lg" placeholder="Naslov" />
+                        <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" className="form-control form-control-lg" placeholder="Title" />
                     </div>
 
                     <div className="col-sm-3">
-                        <input type="text" className="form-control form-control-lg" placeholder="Opis" />
+                        <input value={desc} onChange={(e) => setDescription(e.target.value)} type="text" className="form-control form-control-lg" placeholder="Description" />
                     </div>
 
                     <div className="col-sm-3">
-                        <input type="number" min="0" className="form-control form-control-lg" placeholder="Cena" />
+                        <input value={price} onChange={(e) => setPrice(e.target.value)} type="number" min="0" className="form-control form-control-lg" placeholder="Price" />
                     </div>
 
                     <div className="col-sm-3">
-                        <input type="date" min="0" className="form-control form-control-lg" />
+                        <input value={date} onChange={(e) => setDateTravel(e.target.value)} type="date" min="0" className="form-control form-control-lg" />
                     </div>
 
                     <div className="col-sm-3">
-                        <select className="form-select form-select-lg" >
-                            <option defaultValue={"Ocena"} >Ocena...</option>
+                        <select value={rating} onChange={(e) => setRating(e.target.value)} className="form-select form-select-lg" >
+                            <option defaultValue={"Ocena"} >Rating...</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -39,21 +137,30 @@ const Dashboard = () => {
                     </div>
 
                     <div className="col-sm-3">
-                        <select className="form-select form-select-lg" >
-                            <option defaultValue={"Slika"} >Slika...</option>
+                        <select value={img} onChange={(e) => setImg(e.target.value)} className="form-select form-select-lg" >
+                            <option defaultValue={"Slika"} >Image...</option>
                             <option value="1">engleska</option>
-                            <option value="2">italija</option>
-                            <option value="1">dominikana</option>
-                            <option value="2">maldivi</option>
-                            <option value="1">uae</option>
-                            <option value="2">indonezija</option>
+                            <option value="italija.jpg">italija</option>
+                            <option value="dominikana.jpg">dominikana</option>
+                            <option value="maldivi.jpg">maldivi</option>
+                            <option value="uae.jpg">uae</option>
+                            <option value="indonezija.jpg">indonezija</option>
                         </select>
                     </div>
 
-                    <div className="col-sm-3">
-                        <button type="submit" className="btn btn-success btn-lg">Dodaj</button>
-                        <button type="submit" className="btn btn-danger btn-lg">Odustani</button>
-                    </div>
+                    {editMode.mode == false
+                        ?
+                        <div className="col-sm-3">
+                            <button type="submit" className="btn btn-success btn-lg me-2" onClick={(e) => addTravel(e)} >Add</button>
+                            <button type="submit" className="btn btn-danger btn-lg" onClick={(e) => cancleAdd(e)}>Cancel</button>
+                        </div>
+                        :
+                        <div className="col-sm-3">
+                            <button type="submit" className="btn btn-warning btn-lg me-2 " onClick={(e) => finalEdit(e)} >Save</button>
+                            <button type="submit" className="btn btn-danger btn-lg" onClick={(e) => cancleAdd(e)}>Cancel</button>
+                        </div>
+
+                    }
                 </form>
             </section>
             <section className="container spisak-putovanja py-5">
@@ -66,30 +173,31 @@ const Dashboard = () => {
                             <th scope="col">Cena</th>
                             <th scope="col">Ocena</th>
                             <th scope="col">Datum</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><img src="img/dominikana.jpg" alt="" width="50" /></td>
-                            <td>Dominikana</td>
-                            <td>2500</td>
-                            <td>5</td>
-                            <td>2.12.2022.</td>
-                            <td><button className="btn btn-warning">izmeni</button></td>
-                            <td><button className="btn btn-danger">obrisi</button></td>
-                        </tr>
+                        {
+                            traveloffers.map((travel, idx) => {
+                                const { img, price, rating, date, destination, } = travel
+                                return (
+                                    <tr key={idx} >
+                                        <th scope="row">{idx}</th>
+                                        <td><img src={`../img/${img}`} alt="" width="50" /></td>
+                                        <td>{destination}</td>
+                                        <td>{price}</td>
+                                        <td>{rating}</td>
+                                        <td>{date}</td>
+                                        <td><button className="btn btn-warning" onClick={() => setEdit(idx)}>Edit</button></td>
+                                        <td><button className="btn btn-danger" onClick={() => removeTravel(idx)}>Delate</button></td>
+                                    </tr>
 
-                        <tr>
-                            <th scope="row">2</th>
-                            <td><img src="img/engleska.jpg" alt="" width="50" /></td>
-                            <td>Engleska</td>
-                            <td>2500</td>
-                            <td>5</td>
-                            <td>2.12.2022.</td>
-                            <td><button className="btn btn-warning">izmeni</button></td>
-                            <td><button className="btn btn-danger">obrisi</button></td>
-                        </tr>
+                                )
+                            })
+                        }
+
+
 
                     </tbody>
                 </table>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useContext, useState } from 'react'
 import TravelContext from '../Context/TravelContext'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import filter from '../utility/Filter'
 
 
@@ -10,23 +10,21 @@ const TravelOffers = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
 
     const { traveloffers, setTravelOffers } = useContext(TravelContext)
     const [filtredTravel, setFiltredTravel] = useState([])
-
-
-
+    let navigate = useNavigate()
     useEffect(() => {
-
-        let temp = filter(searchDest, traveloffers, sortDest);
+        let temp = filter(searchDest, traveloffers, sortDest,);
         setFiltredTravel([...temp])
+
     }, [])
 
     const searchFilter = (e) => {
         e.preventDefault()
 
-        let temp = filter(searchDest, traveloffers, sortDest);
+        let temp = filter(searchDest, traveloffers, sortDest,);
         setFiltredTravel([...temp])
 
-    }
 
+    }
 
     return (
         <>
@@ -41,7 +39,7 @@ const TravelOffers = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
 
                     <div className="col-sm-3">
                         <select className="form-select form-select-lg" >
-                            <option defaultValue={"Mesec"} >Mesec...</option>
+                            <option defaultValue={"Month"} >Mesec...</option>
                             <option value="1">Oktobar</option>
                             <option value="2">Novembar</option>
                             <option value="3">Decembar</option>
@@ -50,7 +48,7 @@ const TravelOffers = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
 
                     <div className="col-sm-3">
                         <select value={sortDest} onChange={(e) => setSortDest(e.target.value)} className="form-select form-select-lg" >
-                            <option defaultValue={"Sortitaj"}>Sortiraj...</option>
+                            <option defaultValue={"Sort"}>Sortiraj...</option>
                             <option value="1">Opadajuce</option>
                             <option value="2">Rastuce</option>
                         </select>
@@ -72,7 +70,6 @@ const TravelOffers = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
                         for (let i = 1; i <= travel.rating; i++) {
                             stars.push(<i className="bi bi-star-fill" key={i}></i>)
                         }
-
                         return (
 
                             <div className="col" key={idx}>
@@ -94,11 +91,6 @@ const TravelOffers = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
                             </div>
                         )
                     })}
-
-
-
-
-
 
                 </div>
             </section>

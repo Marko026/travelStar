@@ -24,7 +24,7 @@ const Home = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
 
                     <div className="col-sm-3">
                         <select className="form-select form-select-lg" >
-                            <option defaultValue={"Mesec"}>Mesec...</option>
+                            <option defaultValue={"Month"}>Mesec...</option>
                             <option value="1">Oktobar</option>
                             <option value="2">Novembar</option>
                             <option value="3">Decembar</option>
@@ -33,7 +33,7 @@ const Home = ({ searchDest, setSearchDest, sortDest, setSortDest }) => {
 
                     <div className="col-sm-3">
                         <select value={sortDest} onChange={(e) => setSortDest(e.target.value)} className="form-select form-select-lg" >
-                            <option defaultValue={"Sortitaj"} >Sortiraj...</option>
+                            <option defaultValue={"Sort"} >Sortiraj...</option>
                             <option value="1">Opadajuce</option>
                             <option value="2">Rastuce</option>
                         </select>

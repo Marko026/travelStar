@@ -2,10 +2,12 @@ import React, { useContext } from 'react'
 import TravelContext from '../Context/TravelContext'
 import { useParams } from 'react-router-dom'
 
-const Details = () => {
+const Details = ({ filtredTravel }) => {
 
     const { traveloffers, setTravelOffers } = useContext(TravelContext)
     let params = useParams()
+
+
 
     const stars = []
     for (let i = 1; i <= traveloffers[params.id].rating; i++) {

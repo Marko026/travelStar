@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useEffect } from 'react';
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import TravelContext from '../Context/TravelContext';
 const Navbar = () => {
 
     const location = useLocation();
-
+    const navigate = useNavigate()
+    const { travelOffers, setTravelOffers } = useContext(TravelContext)
 
     useEffect(() => {
 
@@ -18,7 +20,9 @@ const Navbar = () => {
         }
     }, [location])
 
-
+    const loadAllTravelOffers = () => {
+        setTravelOffers([...travelOffers])
+    }
 
     return (
         <div>
@@ -34,7 +38,7 @@ const Navbar = () => {
                                 <Link className="nav-link text-white" aria-current="/" to="/">Home</Link>
                             </li>
                             <li className="nav-item ">
-                                <Link className="nav-link text-white" to="traveloffers">TravelOffers</Link>
+                                <Link className="nav-link text-white" onClick={() => loadAllTravelOffers()} to="traveloffers">TravelOffers</Link>
                             </li>
                             <li className="nav-item ">
                                 <Link className="nav-link text-white" to="dashboard">Dashboard</Link>

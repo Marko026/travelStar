@@ -14,6 +14,7 @@ function App() {
 
   const [searchDest, setSearchDest] = useState("")
   const [sortDest, setSortDest] = useState("")
+  const [filtredTravel, setFiltredTravel] = useState([])
 
 
   return (
@@ -24,8 +25,8 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home searchDest={searchDest} setSearchDest={setSearchDest} sortDest={sortDest} setSortDest={setSearchDest} />} />
-            <Route path="/traveloffers" element={<TravelOffers searchDest={searchDest} setSearchDest={setSearchDest} sortDest={sortDest} setSortDest={setSearchDest} />} />
-            <Route path="/details/:id" element={<Details />} />
+            <Route path="/traveloffers" element={<TravelOffers searchDest={searchDest} setSearchDest={setSearchDest} sortDest={sortDest} setSortDest={setSortDest} />} />
+            <Route path="/details/:id" element={<Details filtredTravel={filtredTravel} setFiltredTravel={setFiltredTravel} />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/*" element={<NotFound />} />
 
